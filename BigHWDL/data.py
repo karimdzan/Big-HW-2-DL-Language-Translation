@@ -9,7 +9,7 @@ def build_vocab(filepath, tokenizer):
     with io.open(filepath, encoding="utf8") as f:
         for string_ in f:
             counter.update(tokenizer(string_))
-    return vocab(counter, specials=['<unk>', '<pad>', '<bos>', '<eos>'], special_first=True)
+    return vocab(counter, specials=['<unk>', '<pad>', '<bos>', '<eos>'], special_first=True, min_freq=2)
 
 
 def data_process(filepaths, de_vocab, en_vocab, tokenizer):

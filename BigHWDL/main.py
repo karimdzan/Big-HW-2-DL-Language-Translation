@@ -18,7 +18,6 @@ set_random_seed(0xDEADF00D)
 
 train_filepaths = ['data/train.de-en.de', 'data/train.de-en.en']
 val_filepaths = ['data/val.de-en.de', 'data/val.de-en.en']
-test_filepaths = ['data/test1.de-en.de']
 
 tokenizer = get_tokenizer(None)
 

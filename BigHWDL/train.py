@@ -1,11 +1,5 @@
 import torch
-from torchtext.data.utils import get_tokenizer
-from torch.nn.utils.rnn import pad_sequence
-from torch.utils.data import DataLoader
-import torch.nn as nn
 from tqdm.notebook import tqdm
-from data import build_vocab
-from data import data_process
 from utils import create_mask
 import wandb
 
