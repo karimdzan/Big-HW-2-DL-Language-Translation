@@ -21,7 +21,7 @@ def create_mask(src, tgt, device, PAD_IDX):
     src_seq_len = src.shape[0]
     tgt_seq_len = tgt.shape[0]
 
-    tgt_mask = generate_square_subsequent_mask(tgt_seq_len)
+    tgt_mask = generate_square_subsequent_mask(tgt_seq_len, device)
     src_mask = torch.zeros((src_seq_len, src_seq_len), device=device).type(torch.bool)
 
     src_padding_mask = (src == PAD_IDX).transpose(0, 1)
@@ -38,7 +38,7 @@ def greedy_decode(model, src, src_mask, max_len, start_symbol, DEVICE, EOS_IDX):
     ys = torch.ones(1, 1).fill_(start_symbol).type(torch.long).to(DEVICE)
     for i in range(max_len-1):
         memory = memory.to(DEVICE)
-        tgt_mask = (generate_square_subsequent_mask(ys.size(0))
+        tgt_mask = (generate_square_subsequent_mask(ys.size(0), DEVICE)
                     .type(torch.bool)).to(DEVICE)
         out = model.decode(ys, memory, tgt_mask)
         out = out.transpose(0, 1)
