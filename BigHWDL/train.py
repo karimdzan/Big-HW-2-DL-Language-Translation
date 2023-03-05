@@ -13,7 +13,7 @@ def train_epoch(model, optimizer, train_dataloader, loss_fn, PAD_IDX, device):
         tgt = tgt.to(device)
         tgt_input = tgt[:-1, :]
 
-        src_mask, tgt_mask, src_padding_mask, tgt_padding_mask = create_mask(src, tgt_input, PAD_IDX)
+        src_mask, tgt_mask, src_padding_mask, tgt_padding_mask = create_mask(src, tgt_input, device, PAD_IDX)
         # print(src.shape)
         # print(tgt_input.shape)
         # print(tgt_padding_mask.shape)
