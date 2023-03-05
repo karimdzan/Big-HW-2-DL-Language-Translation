@@ -3,6 +3,7 @@ from torchtext.data.utils import get_tokenizer
 from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader
 import torch.nn as nn
+import numpy as np
 
 from tqdm.notebook import tqdm
 import wandb
@@ -48,7 +49,11 @@ def generate_batch(data_batch):
 train_data = data_process(train_filepaths, de_vocab, en_vocab, tokenizer)
 val_data = data_process(val_filepaths, de_vocab, en_vocab, tokenizer)
 
-train_iter = DataLoader(train_data, batch_size=BATCH_SIZE, num_workers=2,
+train_sample_idx = np.random.choice(len(train_data), size=int(0.3 * len(train_data)))
+
+train_samples = np.array(train_data)[train_sample_idx]
+
+train_iter = DataLoader(train_samples, batch_size=BATCH_SIZE, num_workers=2,
                         shuffle=True, pin_memory=True, collate_fn=generate_batch)
 valid_iter = DataLoader(val_data, batch_size=BATCH_SIZE, num_workers=2,
                         shuffle=True, pin_memory=True, collate_fn=generate_batch)
