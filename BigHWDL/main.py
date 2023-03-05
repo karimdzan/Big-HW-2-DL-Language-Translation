@@ -49,20 +49,20 @@ def generate_batch(data_batch):
 train_data = data_process(train_filepaths, de_vocab, en_vocab, tokenizer)
 val_data = data_process(val_filepaths, de_vocab, en_vocab, tokenizer)
 
-train_sample_idx = np.random.choice(len(train_data), size=int(0.3 * len(train_data)))
+# train_sample_idx = np.random.choice(len(train_data), size=int(0.3 * len(train_data)))
+#
+# train_samples = np.array(train_data)[train_sample_idx]
 
-train_samples = np.array(train_data)[train_sample_idx]
-
-train_iter = DataLoader(train_samples, batch_size=BATCH_SIZE, num_workers=2,
+train_iter = DataLoader(train_data, batch_size=BATCH_SIZE, num_workers=2,
                         shuffle=True, pin_memory=True, collate_fn=generate_batch)
 valid_iter = DataLoader(val_data, batch_size=BATCH_SIZE, num_workers=2,
                         shuffle=True, pin_memory=True, collate_fn=generate_batch)
 
 SRC_VOCAB_SIZE = len(de_vocab)
 TGT_VOCAB_SIZE = len(en_vocab)
-EMB_SIZE = 256
-NHEAD = 4
-FFN_HID_DIM = 256
+EMB_SIZE = 512
+NHEAD = 8
+FFN_HID_DIM = 512
 BATCH_SIZE = 64
 NUM_ENCODER_LAYERS = 3
 NUM_DECODER_LAYERS = 3
